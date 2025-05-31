@@ -1,12 +1,13 @@
 import java.sql.SQLException;
 
+import app.AppFrame;
+import app.ScreenFactory;
 import configure.DBConfig;
 import repository.CampingcarRentalRepository;
 import repository.CampingcarRepository;
 import repository.CustomerRepository;
 import service.AuthService;
 import service.RentalService;
-import view.LoginScreen;
 
 public class Application {
 
@@ -20,10 +21,8 @@ public class Application {
 		AuthService authService = new AuthService(customerRepository);
 		RentalService rentalService = new RentalService(campingcarRepository, campingcarRentalRepository);
 
-		javax.swing.SwingUtilities.invokeLater(() -> {
-			LoginScreen loginScreen = new LoginScreen(authService, rentalService);
-			loginScreen.setVisible(true);
-		});
+		ScreenFactory factory = new ScreenFactory(authService, rentalService);
+		javax.swing.SwingUtilities.invokeLater(() -> new AppFrame(factory));
 	}
 
 }
