@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 import configure.DBConfig;
+import dto.CampingcarRentalHistory;
+import entity.Campingcar;
 import entity.CampingcarRental;
 
 public class CampingcarRentalRepository {
@@ -78,6 +80,33 @@ public class CampingcarRentalRepository {
 		}
 
 		return rentals;
+	}
+
+	public List<CampingcarRentalHistory> findByCustomerIdWithCampingcar(Long customerId) throws SQLException {
+		String sql = "SELECT cr.*, c.id AS c_id, c.name AS c_name, c.number AS c_number, "
+				+ "c.seat_capacity AS c_seat_capacity, c.image AS c_image, "
+				+ "c.information AS c_information, c.registered_date AS c_registered_date, "
+				+ "c.campingcar_company_id AS c_campingcar_company_id " + "FROM campingcar_rental cr "
+				+ "JOIN campingcar c ON cr.campingcar_id = c.id " + "WHERE cr.customer_id = ?";
+		List<CampingcarRentalHistory> historyList = new ArrayList<>();
+
+		try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setLong(1, customerId);
+			try (ResultSet rs = ps.executeQuery()) {
+				while (rs.next()) {
+					CampingcarRental rental = CampingcarRental.fromResultSet(rs);
+
+					Campingcar campingcar = new Campingcar(rs.getLong("c_id"), rs.getString("c_name"),
+							rs.getString("c_number"), rs.getInt("c_seat_capacity"), rs.getString("c_image"),
+							rs.getString("c_information"), rs.getDate("c_registered_date"),
+							rs.getLong("c_campingcar_company_id"));
+
+					historyList.add(new CampingcarRentalHistory(rental, campingcar));
+				}
+			}
+		}
+
+		return historyList;
 	}
 
 	public CampingcarRental save(CampingcarRental entity) throws SQLException {

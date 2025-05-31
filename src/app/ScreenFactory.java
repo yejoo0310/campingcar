@@ -3,7 +3,12 @@ package app;
 import service.AuthService;
 import service.RentalService;
 import view.Screen;
-import view.screen.*;
+import view.screen.AdminPanel;
+import view.screen.LoginPanel;
+import view.screen.MaintenanceRequestPanel;
+import view.screen.RentalHistoryPanel;
+import view.screen.RentalRegistrationPanel;
+import view.screen.UserPanel;
 
 public class ScreenFactory {
 	private final AuthService authService;
@@ -32,7 +37,7 @@ public class ScreenFactory {
 	}
 
 	public Screen rentalHistory() {
-		return new RentalHistoryPanel();
+		return new RentalHistoryPanel(rentalService);
 	}
 
 	public Screen maintenance() {

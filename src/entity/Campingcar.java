@@ -127,4 +127,19 @@ public class Campingcar {
 		return String.format("%s (%d인승)", name, seatCapacity);
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof Campingcar))
+			return false;
+		Campingcar that = (Campingcar) o;
+		return this.id != null && this.id.equals(that.id);
+	}
+
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
+
 }
