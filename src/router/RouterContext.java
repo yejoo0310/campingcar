@@ -19,7 +19,7 @@ class RouterContext {
 		if (history.isEmpty()) {
 			return null;
 		}
-		currentPath = history.pop(); // ★ 핵심 수정
+		currentPath = history.pop();
 		return currentPath;
 	}
 
