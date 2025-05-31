@@ -1,6 +1,7 @@
 package app;
 
 import service.AuthService;
+import service.MaintenanceService;
 import service.RentalService;
 import view.Screen;
 import view.screen.AdminPanel;
@@ -13,10 +14,12 @@ import view.screen.UserPanel;
 public class ScreenFactory {
 	private final AuthService authService;
 	private final RentalService rentalService;
+	private final MaintenanceService maintenanceService;
 
-	public ScreenFactory(AuthService authService, RentalService rentalService) {
+	public ScreenFactory(AuthService authService, RentalService rentalService, MaintenanceService maintenanceService) {
 		this.authService = authService;
 		this.rentalService = rentalService;
+		this.maintenanceService = maintenanceService;
 	}
 
 	/* Supplier<Screen> 형태로 Router에 제공할 메서드들 */
@@ -41,6 +44,6 @@ public class ScreenFactory {
 	}
 
 	public Screen maintenance() {
-		return new MaintenanceRequestPanel();
+		return new MaintenanceRequestPanel(maintenanceService, rentalService);
 	}
 }

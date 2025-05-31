@@ -49,7 +49,7 @@ public class CarExternalMaintenanceCenterRepository {
 
 	public CarExternalMaintenanceCenter save(CarExternalMaintenanceCenter entity) throws SQLException {
 		String sql = "INSERT INTO car_external_maintenance_center "
-				+ "(cetner_name, center_address, center_phone, manager_name, manager_email) "
+				+ "(center_name, center_address, center_phone, manager_name, manager_email) "
 				+ "VALUES (?, ?, ?, ?, ?)";
 		try (Connection conn = db.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -72,7 +72,7 @@ public class CarExternalMaintenanceCenterRepository {
 
 	public void update(CarExternalMaintenanceCenter entity) throws SQLException {
 		String sql = "UPDATE car_external_maintenance_center SET "
-				+ "cetner_name = ?, center_address = ?, center_phone = ?, "
+				+ "center_name = ?, center_address = ?, center_phone = ?, "
 				+ "manager_name = ?, manager_email = ? WHERE id = ?";
 		try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
