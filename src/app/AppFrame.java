@@ -1,3 +1,4 @@
+// AppFrame.java
 package app;
 
 import java.util.HashMap;
@@ -9,7 +10,6 @@ import javax.swing.JFrame;
 import router.Router;
 
 public class AppFrame extends JFrame {
-
 	public AppFrame(ScreenFactory factory) {
 		setTitle("Campingcar Rental System");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -24,6 +24,8 @@ public class AppFrame extends JFrame {
 		routeMap.put("/rental/register", factory::rentalRegister);
 		routeMap.put("/rental/history", factory::rentalHistory);
 		routeMap.put("/maintenance", factory::maintenance);
+		routeMap.put("/all-tables", factory::allTables);
+		routeMap.put("/campingcar-view", factory::campingcarView);
 
 		Router router = new Router(this, routeMap);
 

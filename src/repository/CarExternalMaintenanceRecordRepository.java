@@ -45,6 +45,23 @@ public class CarExternalMaintenanceRecordRepository {
 				return Optional.empty();
 			}
 		}
+
+	}
+
+	public List<CarExternalMaintenanceRecord> findByCampingcarId(Long campingcarId) throws SQLException {
+		String sql = "SELECT * FROM car_external_maintenance_record WHERE campingcar_id = ?";
+		try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+			ps.setLong(1, campingcarId);
+
+			try (ResultSet rs = ps.executeQuery()) {
+				List<CarExternalMaintenanceRecord> list = new ArrayList<>();
+				while (rs.next()) {
+					list.add(CarExternalMaintenanceRecord.fromResultSet(rs));
+				}
+				return list;
+			}
+		}
 	}
 
 	public CarExternalMaintenanceRecord save(CarExternalMaintenanceRecord entity) throws SQLException {
