@@ -17,7 +17,7 @@ public class CarSelfMaintenanceRecord {
 	@Column("duration_minute")
 	private int durationMinute;
 
-	@Column("camingcar_id")
+	@Column("campingcar_id")
 	private Long campingcarId;
 
 	@Column("employee_id")
@@ -92,7 +92,7 @@ public class CarSelfMaintenanceRecord {
 	 */
 	public static CarSelfMaintenanceRecord fromResultSet(ResultSet rs) throws SQLException {
 		return new CarSelfMaintenanceRecord(rs.getLong("id"), rs.getDate("maintenance_date"),
-				rs.getInt("duration_minute"), rs.getLong("camingcar_id"), rs.getLong("employee_id"),
+				rs.getInt("duration_minute"), rs.getLong("campingcar_id"), rs.getLong("employee_id"),
 				rs.getLong("part_inventory_id"));
 	}
 

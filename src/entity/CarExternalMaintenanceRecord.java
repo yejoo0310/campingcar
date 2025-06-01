@@ -35,7 +35,7 @@ public class CarExternalMaintenanceRecord {
 	@Column("car_external_maintenance_center_id")
 	private Long carExternalMaintenanceCenterId;
 
-	@Column("campincar_company_id")
+	@Column("campigcar_company_id")
 	private Long campingcarCompanyId;
 
 	public CarExternalMaintenanceRecord() {
@@ -143,7 +143,7 @@ public class CarExternalMaintenanceRecord {
 		return new CarExternalMaintenanceRecord(rs.getLong("id"), rs.getString("description"), rs.getDate("date"),
 				rs.getInt("cost"), rs.getDate("due_date"), rs.getString("additional_notes"),
 				rs.getLong("campingcar_id"), rs.getLong("customer_id"),
-				rs.getLong("car_external_maintenance_center_id"), rs.getLong("campincar_company_id"));
+				rs.getLong("car_external_maintenance_center_id"), rs.getLong("campingcar_company_id"));
 	}
 
 	@Override

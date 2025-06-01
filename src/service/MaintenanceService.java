@@ -6,6 +6,7 @@ import entity.Campingcar;
 import entity.CarExternalMaintenanceCenter;
 import entity.CarExternalMaintenanceRecord;
 import entity.CarSelfMaintenanceRecord;
+import entity.PartInventory;
 import repository.CampingcarRentalRepository;
 import repository.CampingcarRepository;
 import repository.CarExternalMaintenanceCenterRepository;
@@ -40,6 +41,7 @@ public class MaintenanceService {
 		try {
 			return carExternalMaintenanceCenterRepository.findAll();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return List.of();
 		}
 	}
@@ -48,6 +50,7 @@ public class MaintenanceService {
 		try {
 			return carExternalMaintenanceRecordRepository.save(carExternalMaintenanceRecord);
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw ApplicationException.of("정비의뢰 실패");
 		}
 	}
@@ -56,6 +59,7 @@ public class MaintenanceService {
 		try {
 			return campingcarRepository.findAll();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return List.of();
 		}
 	}
@@ -73,7 +77,28 @@ public class MaintenanceService {
 		try {
 			return carSelfMaintenanceRecordRepository.findByCampingcarId(campingcarId);
 		} catch (Exception e) {
+			e.printStackTrace();
 			return List.of();
+		}
+	}
+
+	public PartInventory getPartInventoryById(Long partInventoryId) {
+		try {
+			return partInventoryRepository.findById(partInventoryId)
+					.orElseThrow(() -> ApplicationException.of("해당 부품 정보가 존재하지 않습니다."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw ApplicationException.of("부품 정보 조회 중 오류가 발생했습니다.");
+		}
+	}
+
+	public CarExternalMaintenanceCenter getExternalCenterById(Long centerId) {
+		try {
+			return carExternalMaintenanceCenterRepository.findById(centerId)
+					.orElseThrow(() -> ApplicationException.of("해당 정비센터가 존재하지 않습니다."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw ApplicationException.of("정비센터 정보 조회 중 오류가 발생했습니다.");
 		}
 	}
 

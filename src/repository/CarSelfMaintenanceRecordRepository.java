@@ -48,7 +48,7 @@ public class CarSelfMaintenanceRecordRepository {
 	}
 
 	public List<CarSelfMaintenanceRecord> findByCampingcarId(Long campingcarId) throws SQLException {
-		String sql = "SELECT * FROM car_self_maintenance_record WHERE camingcar_id = ?";
+		String sql = "SELECT * FROM car_self_maintenance_record WHERE campingcar_id = ?";
 		try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
 			ps.setLong(1, campingcarId);
@@ -65,14 +65,14 @@ public class CarSelfMaintenanceRecordRepository {
 
 	public CarSelfMaintenanceRecord save(CarSelfMaintenanceRecord entity) throws SQLException {
 		String sql = "INSERT INTO car_self_maintenance_record "
-				+ "(maintenance_date, duration_minute, camingcar_id, employee_id, part_inventory_id) "
+				+ "(maintenance_date, duration_minute, campingcar_id, employee_id, part_inventory_id) "
 				+ "VALUES (?, ?, ?, ?, ?)";
 		try (Connection conn = db.getConnection();
 				PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
 			ps.setDate(1, entity.getMaintenanceDate());
 			ps.setInt(2, entity.getDurationMinute());
-			ps.setLong(3, entity.getCampingcarId()); // 컬럼명이 camingcar_id 이므로 메서드명이 달라도 순서 유지
+			ps.setLong(3, entity.getCampingcarId());
 			ps.setLong(4, entity.getEmployeeId());
 			ps.setLong(5, entity.getPartInventoryId());
 
@@ -88,7 +88,7 @@ public class CarSelfMaintenanceRecordRepository {
 
 	public void update(CarSelfMaintenanceRecord entity) throws SQLException {
 		String sql = "UPDATE car_self_maintenance_record SET "
-				+ "maintenance_date = ?, duration_minute = ?, camingcar_id = ?, employee_id = ?, part_inventory_id = ? "
+				+ "maintenance_date = ?, duration_minute = ?, campingcar_id = ?, employee_id = ?, part_inventory_id = ? "
 				+ "WHERE id = ?";
 		try (Connection conn = db.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
